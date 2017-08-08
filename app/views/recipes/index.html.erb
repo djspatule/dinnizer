@@ -2,8 +2,26 @@
 
 <% @recipes.each do |recipe| %>
   <div class="product">
-    <p> name : <% recipe.name %> </p>
-    <p> content : <% recipe.content %> </p>
-    <p> <% recipe.created_at %> </p>
+    <div class='product-upvote'>
+      <div class="product-arrow"></div>
+      <div class='product-count'>0</div>
+    </div>
+    <img src="recipe.jpg" alt="recipe" class="product-image hidden-xs">
+    <div class='product-body'>
+      <h3><%= recipe.name %></h3>
+    </div>
+    <ul class="list-inline product-controls hidden-sm hidden-xs">
+      <li>
+        <%= link_to recipe_path(recipe) do %>
+          <i class="fa fa-eye"></i>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to edit_recipe_path(recipe) do %>
+          <i class="fa fa-pencil"></i>
+        <% end %>
+      </li>
+      <li><a href=""><i class="fa fa-star"></i></a></li>
+    </ul>
   </div>
 <% end %>
