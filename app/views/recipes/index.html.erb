@@ -1,0 +1,9 @@
+<h1> All recipes </h1>
+
+<% @recipes.each do |recipe| %>
+  <div class="product">
+    <p> name : <% recipe.name %> </p>
+    <p> content : <% recipe.content %> </p>
+    <p> <% recipe.created_at %> </p>
+  </div>
+<% end %>
