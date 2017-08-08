@@ -21,7 +21,11 @@
           <i class="fa fa-pencil"></i>
         <% end %>
       </li>
-      <li><a href=""><i class="fa fa-star"></i></a></li>
+      <li>
+        <%= link_to recipe_path(recipe), method: :delete do %>
+          <i class="fa fa-trash"></i>
+        <% end %>
+      </li>
     </ul>
   </div>
 <% end %>
