@@ -7,6 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Recipe.destroy_all
+User.destroy_all
+
+User.create! email: "djspatule@wanadoo.fr", password: "testtest"
+User.create! email: "me@mail.com", password: "testtest"
+
 
 Recipe.create! name: "Burger", content: "- Lightly oil grill& heat BBQ to medium.
 - Whisk egg in a bowl& add next 6 ingredients.
