@@ -16,6 +16,8 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'devise'
+gem 'cloudinary'
+gem 'attachinary'
 
 group :development, :test do
   gem 'better_errors'
