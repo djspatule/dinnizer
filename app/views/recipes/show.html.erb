@@ -2,5 +2,8 @@
   <div class="banner-content">
     <h1><%= @recipe.name %></h1>
     <p><%= @recipe.content %></p>
+    <% if @recipe.recipe_photo? %>
+      <%= cl_image_tag @recipe.recipe_photo.path, :width => 300, :height => 200 %>
+    <% end %>
   </div>
 </div>

@@ -40,7 +40,7 @@ private
 # list between create and update. Also, you can specialize this method
 # with per-user checking of permissible attributes.
   def recipe_params
-    params.require(:recipe).permit(:name, :content)
+    params.require(:recipe).permit(:name, :content, :recipe_photo)
   end
 
 end

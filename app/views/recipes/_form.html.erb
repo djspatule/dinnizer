@@ -1,5 +1,7 @@
 <%= simple_form_for @recipe do |form| %>
     <%= form.input :name, label: "recipe's title", placeholder: "Burger", error: 'Title is mandatory, please specify one' %>
     <%= form.input :content, label: "recipe", placeholder: "Place cheese and steak between buns" %>
+    <%= form.input :recipe_photo, as: :attachinary %>
     <%= form.button :submit, class: "btn btn-primary", method: :post %>
+    
   <% end %>
