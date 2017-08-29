@@ -7,7 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Recipe.destroy_all
+Guest.destroy_all
 User.destroy_all
+
 
 User.create! email: "djspatule@wanadoo.fr", password: "testtest"
 User.create! email: "me@mail.com", password: "testtest"
@@ -25,3 +27,6 @@ Recipe.create! name: "Burger", content: "- Lightly oil grill& heat BBQ to medium
 - Don't abuse your burgers by pressing with a spatula, pricking with a fork or turning frequently as precious juices will be lost!
 - Tuck into a warm crusty bun& add your favourite toppings."
 Recipe.create! name: "Pizza", content: "margharita"
+
+Guest.create! first_name: "Lionel", last_name: "Arnaud"
+Guest.create! first_name: "Myriam", last_name: "Bialobroda"

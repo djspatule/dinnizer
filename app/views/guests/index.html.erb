@@ -1,32 +1,32 @@
-<h1> All recipes </h1>
+<h1> All guests </h1>
 
-<% @recipes.each do |recipe| %>
+<% @guests.each do |guest| %>
   <div class="product">
     <div class='product-upvote'>
       <div class="product-arrow"></div>
       <div class='product-count'>0</div>
     </div>
-    <% if recipe.recipe_photo? %>
-      <%= cl_image_tag recipe.recipe_photo.path, class: "product-image hidden-xs" %>
+    <% if guest.guest_photo? %>
+      <%= cl_image_tag guest.guest_photo.path, class: "product-image hidden-xs" %>
     <% else %>
-      <img src="recipe.jpg" alt="recipe_photo" class="product-image hidden-xs">
+      <img src="guest.jpg" alt="guest_photo" class="product-image hidden-xs">
     <% end %>
     <div class='product-body'>
-      <h3><%= recipe.name %></h3>
+      <h3><%= guest.first_name + " " + guest.last_name %></h3>
     </div>
     <ul class="list-inline product-controls hidden-sm hidden-xs">
       <li>
-        <%= link_to recipe_path(recipe) do %>
+        <%= link_to guest_path(guest) do %>
           <i class="fa fa-eye"></i>
         <% end %>
       </li>
       <li>
-        <%= link_to edit_recipe_path(recipe) do %>
+        <%= link_to edit_guest_path(guest) do %>
           <i class="fa fa-pencil"></i>
         <% end %>
       </li>
       <li>
-        <%= link_to recipe_path(recipe), method: :delete do %>
+        <%= link_to guest_path(guest), method: :delete do %>
           <i class="fa fa-trash"></i>
         <% end %>
       </li>
