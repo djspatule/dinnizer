@@ -1,0 +1,9 @@
+<%= simple_form_for @dinner do |form| %>
+    <%= f.input :dinner_date, as: :date, start_year: Date.today.year - 120,
+                              end_year: Date.today.year, discard_day: true,
+                              order: [:month, :year] %>
+    <%= form.input :recipe, label: "Recipe", placeholder: "Burger" %>
+    <%= form.input :guest, label: "Guest", placeholder: "John Doe" %>
+    <%= form.button :submit, class: "btn btn-primary", method: :post %>
+
+  <% end %>

@@ -12,7 +12,7 @@
       <img src="guest.jpg" alt="guest_photo" class="product-image hidden-xs">
     <% end %>
     <div class='product-body'>
-      <h3><%= guest.first_name + " " + guest.last_name %></h3>
+      <h3><%= link_to guest.first_name + " " + guest.last_name, guest_path(guest) %></h3>
     </div>
     <ul class="list-inline product-controls hidden-sm hidden-xs">
       <li>

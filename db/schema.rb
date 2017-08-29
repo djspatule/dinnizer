@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170826093238) do
+ActiveRecord::Schema.define(version: 20170829120009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 20170826093238) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["attachinariable_type", "attachinariable_id", "scope"], name: "by_scoped_parent"
+  end
+
+  create_table "dinners", force: :cascade do |t|
+    t.bigint "recipe_id"
+    t.bigint "guest_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "dinner_date"
+    t.index ["guest_id"], name: "index_dinners_on_guest_id"
+    t.index ["recipe_id"], name: "index_dinners_on_recipe_id"
   end
 
   create_table "guests", force: :cascade do |t|
@@ -61,4 +71,6 @@ ActiveRecord::Schema.define(version: 20170826093238) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "dinners", "guests"
+  add_foreign_key "dinners", "recipes"
 end

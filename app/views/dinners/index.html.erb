@@ -1,32 +1,28 @@
-<h1> All recipes </h1>
+<h1> All guests </h1>
 
-<% @recipes.each do |recipe| %>
+<% @dinners.each do |dinner| %>
   <div class="product">
     <div class='product-upvote'>
       <div class="product-arrow"></div>
       <div class='product-count'>0</div>
     </div>
-    <% if recipe.recipe_photo? %>
-      <%= cl_image_tag recipe.recipe_photo.path, class: "product-image hidden-xs" %>
-    <% else %>
-      <img src="recipe.jpg" alt="recipe_photo" class="product-image hidden-xs">
-    <% end %>
     <div class='product-body'>
-      <h3><%= link_to recipe.name, recipe_path(recipe) %></h3>
+      <h3><%= link_to dinner.dinner_date, dinner_path(dinner) %></h3>
+      <p><%= dinner.recipe.name + " with " + dinner.guest.first_name + " " + dinner.guest.last_name%></p>
     </div>
     <ul class="list-inline product-controls hidden-sm hidden-xs">
       <li>
-        <%= link_to recipe_path(recipe) do %>
+        <%= link_to dinner_path(dinner) do %>
           <i class="fa fa-eye"></i>
         <% end %>
       </li>
       <li>
-        <%= link_to edit_recipe_path(recipe) do %>
+        <%= link_to edit_dinner_path(dinner) do %>
           <i class="fa fa-pencil"></i>
         <% end %>
       </li>
       <li>
-        <%= link_to recipe_path(recipe), method: :delete do %>
+        <%= link_to dinner_path(dinner), method: :delete do %>
           <i class="fa fa-trash"></i>
         <% end %>
       </li>

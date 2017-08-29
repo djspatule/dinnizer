@@ -18,7 +18,7 @@
         <% if current_user %>
           <%= link_to "Recipes \u25BE", recipes_path, class: "navbar-wagon-item navbar-wagon-link" %>
           <%= link_to "Guests \u25BE", guests_path, class: "navbar-wagon-item navbar-wagon-link" %>
-          <%= link_to "Dinners - TODO \u25BE", recipes_path, class: "navbar-wagon-item navbar-wagon-link" %>
+          <%= link_to "Dinners \u25BE", dinners_path, class: "navbar-wagon-item navbar-wagon-link" %>
           <% if current_user.avatar %>
             <%= cl_image_tag current_user.avatar.path, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", data: {toggle: "dropdown"} %>
           <% else %>
