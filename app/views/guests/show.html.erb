@@ -8,7 +8,9 @@
     <p>
       <% if @guest.dinners %>
         <% @guest.dinners.each do |dinner| %>
-          <%= link_to dinner.dinner_date, dinner_path(dinner) %>
+          <ul>
+            <li> <%= link_to dinner.dinner_date, dinner_path(dinner) %> </li>
+          </ul>
         <% end %>
       <% end %>
     <h3>and you served: </h3>
@@ -16,7 +18,9 @@
       <% if @guest.dinners %>
         <% @guest.dinners.each do |dinner| %>
           <% if dinner.recipe %>
-            <%= link_to dinner.recipe.name, recipe_path(dinner.recipe) %>
+            <ul>
+            <li> <%= link_to dinner.recipe.name, recipe_path(dinner.recipe) %> </li>
+          </ul>
           <% end %>
         <% end %>
       <% end %>
