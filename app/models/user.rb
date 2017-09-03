@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_attachment :avatar
   validates :email, presence: true, uniqueness: true
-  has_many :dinners, dependant: :destroy
-  has_many :guests, dependant: :destroy
-  has_many :recipes, dependant: :destroy
+  has_many :dinners
+  has_many :guests
+  has_many :recipes
 end

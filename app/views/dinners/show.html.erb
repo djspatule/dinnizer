@@ -2,8 +2,10 @@
   <div class="banner-content">
     <h1><%= @dinner.dinner_date %></h1>
     <h3>you served the following: </h3>
-    <p><%= link_to @dinner.recipe.name, recipe_path(@dinner.recipe) %></p>
+    <% @dinner.recipes.each do |recipe| %>
+      <p><%= link_to recipe.name, recipe_path(recipe) %></p>
+    <% end %>
     <h3>And enjoyed it with: </h3>
-    <p><%= link_to @dinner.guest.first_name + " " + @dinner.guest.last_name, guest_path(@dinner.guest) %></p>
+    <!-- <p><%#= link_to @dinner.guest.first_name + " " + @dinner.guest.last_name, guest_path(@dinner.guest) %></p> -->
   </div>
 </div>

@@ -1,19 +1,23 @@
 class DinnersController < ApplicationController
 def new
     @dinner = Dinner.new
+    @dinner_recipes = DinnerRecipe.new
+    @dinner_guests = DinnerGuest.new
   end
   def index
     @dinners = Dinner.where(user: current_user)
   end
   def create
     @dinner = Dinner.new(dinner_params)
-    # if dinner_params.recipe_id
-    #   DinnerRecipe.new(dinner_params)
-    # end
-    # if dinner_params.guest_id
-    #   GuestRecipe.new(dinner_params)
-    # end
     @dinner.user = current_user
+    if dinner_params[:recipe_id]
+      @dinner_recipe = DinnerRecipe.new(dinner_params)
+      if @dinner_recipe.save
+        redirect_to dinners_path
+      else
+        render :new
+      end
+    end
     if @dinner.save
       redirect_to dinners_path
     else

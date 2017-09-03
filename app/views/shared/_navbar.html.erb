@@ -22,12 +22,12 @@
 
       <div class="navbar-wagon-item">
         <div class="dropdown">
-          <%= link_to "#", class: "dropdown-toggle", id: "recipe-menu", data: {toggle: "dropdown"} do %>
+          <span class="dropdown-toggle" id="recipe-menu" data-toggle="dropdown">
             Recipes <i class="fa fa-caret-down"></i>
-          <% end %>
+          </span>
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
-            <li><%= link_to "Edit profile", edit_user_registration_path %></li>
-            <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to "List Recipe", recipes_path %></li>
+            <li><%= link_to "New Recipe", new_recipe_path %></li>
           </ul>
         </div>
       </div>

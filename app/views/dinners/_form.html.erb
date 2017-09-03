@@ -2,8 +2,9 @@
     <%= form.input :dinner_date, as: :date, start_year: Date.today.year - 120,
                               end_year: Date.today.year,
                               order: [:day, :month, :year] %>
-    <%= form.association :recipe, collection: Recipe.where(user: current_user).order(:name), label: "Recipe", placeholder: "Burger" %>
-    <%= form.association :guest, collection: Guest.where(user: current_user).order(:last_name), placeholder: "John Doe", :label_method => lambda { |guest| "#{guest.first_name} #{guest.last_name}" } %>
     <%= form.button :submit, class: "btn btn-primary", method: :post %>
+<% end %>
 
-  <% end %>
+<%= simple_form_for @dinner_recipe do |form| %>
+  <%= form.input :recipe_id, collection: @recipes, label: "Recipe", placeholder: "Burger" %>
+<% end %>
