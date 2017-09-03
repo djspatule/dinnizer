@@ -3,10 +3,11 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
   end
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.where(user: current_user)
   end
   def create
     @recipe = Recipe.new(recipe_params)
+    @recipe.user = current_user
     if @recipe.save
            redirect_to recipes_path
         else
@@ -18,7 +19,12 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id].to_i)
   end
   def show
-    @recipe = Recipe.find(params[:id].to_i)
+    recipe = Recipe.find(params[:id].to_i)
+    if recipe.user == current_user
+      @recipe = recipe
+    else
+      redirect_to recipes_path
+    end
   end
   def update
     @recipe = Recipe.find(params[:id].to_i)
@@ -40,7 +46,7 @@ private
 # list between create and update. Also, you can specialize this method
 # with per-user checking of permissible attributes.
   def recipe_params
-    params.require(:recipe).permit(:name, :content, :recipe_photo)
+    params.require(:recipe).permit(:name, :content, :recipe_photo, :user)
   end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829120009) do
+ActiveRecord::Schema.define(version: 20170903080205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,8 +36,10 @@ ActiveRecord::Schema.define(version: 20170829120009) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "dinner_date"
+    t.bigint "user_id"
     t.index ["guest_id"], name: "index_dinners_on_guest_id"
     t.index ["recipe_id"], name: "index_dinners_on_recipe_id"
+    t.index ["user_id"], name: "index_dinners_on_user_id"
   end
 
   create_table "guests", force: :cascade do |t|
@@ -45,6 +47,8 @@ ActiveRecord::Schema.define(version: 20170829120009) do
     t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_guests_on_user_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -52,6 +56,8 @@ ActiveRecord::Schema.define(version: 20170829120009) do
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -73,4 +79,7 @@ ActiveRecord::Schema.define(version: 20170829120009) do
 
   add_foreign_key "dinners", "guests"
   add_foreign_key "dinners", "recipes"
+  add_foreign_key "dinners", "users"
+  add_foreign_key "guests", "users"
+  add_foreign_key "recipes", "users"
 end

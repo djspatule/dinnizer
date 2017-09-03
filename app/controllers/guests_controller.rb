@@ -3,10 +3,11 @@ class GuestsController < ApplicationController
     @guest = Guest.new
   end
   def index
-    @guests = Guest.all
+    @guests = Guest.where(user: current_user)
   end
   def create
     @guest = Guest.new(guest_params)
+    @guest.user = current_user
     if @guest.save
            redirect_to guests_path
         else
@@ -18,20 +19,34 @@ class GuestsController < ApplicationController
     @guest = Guest.find(params[:id].to_i)
   end
   def show
-    @guest = Guest.find(params[:id].to_i)
+    guest = Guest.find(params[:id].to_i)
+    if guest.user == current_user
+      @guest = guest
+    else
+      redirect_to guests_path
+    end
   end
   def update
     @guest = Guest.find(params[:id].to_i)
-    if @guest.update(guest_params)
-      redirect_to guests_path
-    else
-      render :edit
+    if @guest.user = current_user
+      if @guest.update(guest_params)
+        redirect_to guests_path
+      else
+        render :edit
+      end
     end
-
   end
   def destroy
-    Guest.destroy(params[:id].to_i)
-    redirect_to guests_path
+    @guest = Guest.find(params[:id].to_i)
+    if @guest.user = current_user
+      if @guest.destroy
+        redirect_to guests_path
+      else
+        render :show
+      end
+    else
+      redirect_to guests_path
+    end
   end
 
 private
@@ -40,7 +55,7 @@ private
 # list between create and update. Also, you can specialize this method
 # with per-user checking of permissible attributes.
   def guest_params
-    params.require(:guest).permit(:first_name, :last_name, :guest_photo)
+    params.require(:guest).permit(:first_name, :last_name, :guest_photo, :user)
   end
 
 end
