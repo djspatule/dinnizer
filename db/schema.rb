@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170903080205) do
+ActiveRecord::Schema.define(version: 20170903140556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,33 +30,51 @@ ActiveRecord::Schema.define(version: 20170903080205) do
     t.index ["attachinariable_type", "attachinariable_id", "scope"], name: "by_scoped_parent"
   end
 
-  create_table "dinners", force: :cascade do |t|
-    t.bigint "recipe_id"
+  create_table "dinner_guests", force: :cascade do |t|
+    t.bigint "dinner_id"
     t.bigint "guest_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["dinner_id"], name: "index_dinner_guests_on_dinner_id"
+    t.index ["guest_id"], name: "index_dinner_guests_on_guest_id"
+  end
+
+  create_table "dinner_recipes", force: :cascade do |t|
+    t.bigint "dinner_id"
+    t.bigint "recipe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dinner_id"], name: "index_dinner_recipes_on_dinner_id"
+    t.index ["recipe_id"], name: "index_dinner_recipes_on_recipe_id"
+  end
+
+  create_table "dinners", force: :cascade do |t|
     t.date "dinner_date"
     t.bigint "user_id"
-    t.index ["guest_id"], name: "index_dinners_on_guest_id"
-    t.index ["recipe_id"], name: "index_dinners_on_recipe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_dinners_on_user_id"
   end
 
   create_table "guests", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
+    t.bigint "dinner_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
+    t.index ["dinner_id"], name: "index_guests_on_dinner_id"
     t.index ["user_id"], name: "index_guests_on_user_id"
   end
 
   create_table "recipes", force: :cascade do |t|
     t.string "name"
-    t.string "content"
+    t.text "content"
+    t.bigint "dinner_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
+    t.index ["dinner_id"], name: "index_recipes_on_dinner_id"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
@@ -77,9 +95,13 @@ ActiveRecord::Schema.define(version: 20170903080205) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "dinners", "guests"
-  add_foreign_key "dinners", "recipes"
+  add_foreign_key "dinner_guests", "dinners"
+  add_foreign_key "dinner_guests", "guests"
+  add_foreign_key "dinner_recipes", "dinners"
+  add_foreign_key "dinner_recipes", "recipes"
   add_foreign_key "dinners", "users"
+  add_foreign_key "guests", "dinners"
   add_foreign_key "guests", "users"
+  add_foreign_key "recipes", "dinners"
   add_foreign_key "recipes", "users"
 end

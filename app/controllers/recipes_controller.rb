@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  before_action :set_recipe, only: [:edit, :show, :update, :destroy]
+
   def new
     @recipe = Recipe.new
   end
@@ -16,10 +18,8 @@ class RecipesController < ApplicationController
   end
 
   def edit
-    @recipe = Recipe.find(params[:id].to_i)
   end
   def show
-    recipe = Recipe.find(params[:id].to_i)
     if recipe.user == current_user
       @recipe = recipe
     else
@@ -27,7 +27,6 @@ class RecipesController < ApplicationController
     end
   end
   def update
-    @recipe = Recipe.find(params[:id].to_i)
     if @recipe.update(recipe_params)
       redirect_to recipes_path
     else
@@ -36,7 +35,8 @@ class RecipesController < ApplicationController
 
   end
   def destroy
-    Recipe.destroy(params[:id].to_i)
+    @recipe.destroy
+    # Recipe.destroy(params[:id].to_i)
     redirect_to recipes_path
   end
 
@@ -45,6 +45,11 @@ private
 # a good pattern since you'll be able to reuse the same permit
 # list between create and update. Also, you can specialize this method
 # with per-user checking of permissible attributes.
+
+  def set_recipe
+    @recipe = Recipe.find(params[:id].to_i)
+  end
+
   def recipe_params
     params.require(:recipe).permit(:name, :content, :recipe_photo, :user)
   end

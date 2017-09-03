@@ -6,9 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Dinner.destroy_all
+DinnerGuest.destroy_all
+DinnerRecipe.destroy_all
 Recipe.destroy_all
 Guest.destroy_all
+Dinner.destroy_all
 User.destroy_all
 
 #Users ---------------------------------------------------------------------
@@ -16,7 +18,7 @@ myriam = User.create! email: "mimi@mail.com", password: "testtest"
 me = User.create! email: "me@mail.com", password: "testtest"
 
 #Recipes ---------------------------------------------------------------------
-burger = Recipe.create! name: "Burger", user: me, content: "- Lightly oil grill& heat BBQ to medium.
+burger = Recipe.create! name: "Burger", user_id: me.id , content: "- Lightly oil grill& heat BBQ to medium.
 - Whisk egg in a bowl& add next 6 ingredients.
 - Add any of the “stir-ins” that appeal to you.
 - Crumble in beef& using your hands or a fork, gently mix together.
@@ -27,20 +29,32 @@ burger = Recipe.create! name: "Burger", user: me, content: "- Lightly oil grill&
 - An instant read thermometer should read 160F.
 - Don't abuse your burgers by pressing with a spatula, pricking with a fork or turning frequently as precious juices will be lost!
 - Tuck into a warm crusty bun& add your favourite toppings."
-pecan_pie = Recipe.create! name: "Pecan Pie", user: me, content: "pecan nuts and caramel"
-pizza = Recipe.create! name: "Pizza", user: myriam, content: "margharita"
-tiramisu = Recipe.create! name: "Tiramisu", user: myriam, content: "coffee and mascarpone"
+pecan_pie = Recipe.create! name: "Pecan Pie", user_id: me.id, content: "pecan nuts and caramel"
+pizza = Recipe.create! name: "Pizza", user_id: myriam.id, content: "margharita"
+tiramisu = Recipe.create! name: "Tiramisu", user_id: myriam.id, content: "coffee and mascarpone"
 
 #Guests ---------------------------------------------------------------------
-lionel = Guest.create! first_name: "Lionel", last_name: "Arnaud", user: me
-helene = Guest.create! first_name: "Hélène", last_name: "Kuepper", user: me
-mimi = Guest.create! first_name: "Myriam", last_name: "Bialobroda", user: myriam
-karine = Guest.create! first_name: "Karine", last_name: "Bialobroda", user: myriam
+lionel = Guest.create! first_name: "Lionel", last_name: "Arnaud", user_id: me.id
+helene = Guest.create! first_name: "Hélène", last_name: "Kuepper", user_id: me.id
+mimi = Guest.create! first_name: "Myriam", last_name: "Bialobroda", user_id: myriam.id
+karine = Guest.create! first_name: "Karine", last_name: "Bialobroda", user_id: myriam.id
 
 #Dinners ---------------------------------------------------------------------
 date = Date.new(2000,8,11)
 date_2 = Date.new(2002,03,18)
 date_3 = Date.new(2017,1,14)
-Dinner.create! dinner_date: date, recipe: pizza, guest: lionel, user: me
-Dinner.create! dinner_date: date_2, recipe: burger, guest: mimi, user: myriam
-Dinner.create! dinner_date: date_3, recipe: tiramisu, guest: mimi, user: myriam
+
+
+din1 = Dinner.create! dinner_date: date, user_id: me.id
+din2 = Dinner.create! dinner_date: date_2, user_id: myriam.id
+din3 = Dinner.create! dinner_date: date_3, user_id: myriam.id
+
+DinnerGuest.create! dinner_id: din1.id, guest_id: lionel.id
+DinnerGuest.create! dinner_id: din1.id, guest_id: helene.id
+
+DinnerRecipe.create! dinner_id: din1.id, recipe_id: burger.id
+DinnerRecipe.create! dinner_id: din1.id, recipe_id: pizza.id
+# Dinner.create! dinner_date: date, recipe: pizza, guest: lionel, user_id: me.id
+# Dinner.create! dinner_date: date_2, recipe: burger, guest: mimi, user_id: myriam.id
+# Dinner.create! dinner_date: date_3, recipe: tiramisu, guest: mimi, user_id: myriam.id
+

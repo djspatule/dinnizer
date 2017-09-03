@@ -1,6 +1,5 @@
 class Guest < ApplicationRecord
-  has_attachment :guest_photo
-  validates :last_name, presence: true
-  has_many :dinners
+  has_many :dinner_guests, dependant: :destroy
+  has_many :dinners, through: :dinner_guests
   belongs_to :user
 end
