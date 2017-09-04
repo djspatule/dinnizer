@@ -18,6 +18,7 @@ class GuestsController < ApplicationController
   def edit
     @guest = Guest.find(params[:id].to_i)
   end
+  
   def show
     guest = Guest.find(params[:id].to_i)
     if guest.user == current_user
@@ -26,6 +27,7 @@ class GuestsController < ApplicationController
       redirect_to guests_path
     end
   end
+  
   def update
     @guest = Guest.find(params[:id].to_i)
     if @guest.user = current_user
@@ -34,8 +36,11 @@ class GuestsController < ApplicationController
       else
         render :edit
       end
+    else
+      redirect_to guests_path
     end
   end
+  
   def destroy
     @guest = Guest.find(params[:id].to_i)
     if @guest.user = current_user

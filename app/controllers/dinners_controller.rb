@@ -41,19 +41,28 @@ class DinnersController < ApplicationController
   end
   
   def update
-    dinner = Dinner.find(params[:id].to_i)
-    if dinner.user == current_user
-      dinner.update(dinner_params)
-      redirect_to dinners_path, notice: 'Recipe successfully updated !'
+    @dinner = Dinner.find(params[:id].to_i)
+    if @dinner.user == current_user
+      if @dinner.update(dinner_params)
+        redirect_to dinners_path, notice: 'Recipe successfully updated !'
+      else
+        render :edit
+      end
     else
-      render :edit
+      redirect_to dinners_path
     end
-
   end
   def destroy
-    #protect against deletion by unauthorized user
-    Dinner.destroy(params[:id].to_i)
-    redirect_to dinners_path, alert: 'Recipe successfully deleted !'
+    @dinner = Dinner.find(params[:id].to_i)
+    if @dinner.user = current_user
+      if @dinner.destroy
+        redirect_to dinners_path, alert: 'Dinner successfully deleted !'
+      else
+        render :show
+      end
+    else
+      redirect_to dinners_path
+    end
   end
 
 private

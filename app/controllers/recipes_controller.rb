@@ -18,6 +18,7 @@ class RecipesController < ApplicationController
   end
 
   def edit
+    @recipe = Recipe.find(params[:id].to_i)
   end
   
   def show
@@ -37,6 +38,8 @@ class RecipesController < ApplicationController
       else
         render :edit
       end
+    else
+      redirect_to recipes_path
     end
   end
 
@@ -58,10 +61,6 @@ private
 # a good pattern since you'll be able to reuse the same permit
 # list between create and update. Also, you can specialize this method
 # with per-user checking of permissible attributes.
-
-  def set_recipe
-    @recipe = Recipe.find(params[:id].to_i)
-  end
 
   def recipe_params
     params.require(:recipe).permit(:name, :content, :recipe_photo, :user)
