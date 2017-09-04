@@ -1,12 +1,14 @@
 class DinnersController < ApplicationController
-def new
+  def new
     @dinner = Dinner.new
     @dinner_recipes = DinnerRecipe.new
     @dinner_guests = DinnerGuest.new
   end
+  
   def index
     @dinners = Dinner.where(user: current_user)
   end
+  
   def create
     @dinner = Dinner.new(dinner_params)
     @dinner.user = current_user
@@ -19,7 +21,7 @@ def new
       end
     end
     if @dinner.save
-      redirect_to dinners_path
+      redirect_to dinners_path, notice: 'Dinner successfully saved !'
     else
       render :new
     end
@@ -28,6 +30,7 @@ def new
   def edit
     @dinner = Dinner.find(params[:id].to_i)
   end
+  
   def show
     dinner = Dinner.find(params[:id].to_i)
     if dinner.user == current_user
@@ -36,11 +39,12 @@ def new
       redirect_to dinners_path
     end
   end
+  
   def update
     dinner = Dinner.find(params[:id].to_i)
     if dinner.user == current_user
       dinner.update(dinner_params)
-      redirect_to dinners_path
+      redirect_to dinners_path, notice: 'Recipe successfully updated !'
     else
       render :edit
     end
@@ -49,7 +53,7 @@ def new
   def destroy
     #protect against deletion by unauthorized user
     Dinner.destroy(params[:id].to_i)
-    redirect_to dinners_path
+    redirect_to dinners_path, alert: 'Recipe successfully deleted !'
   end
 
 private

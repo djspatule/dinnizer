@@ -11,33 +11,46 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new(recipe_params)
     @recipe.user = current_user
     if @recipe.save
-           redirect_to recipes_path
-        else
-            render :new
-        end
+      redirect_to recipes_path, notice: 'Recipe successfully saved !'
+    else
+      render :new
+    end
   end
 
   def edit
   end
+  
   def show
+    recipe = Recipe.find(params[:id].to_i)
     if recipe.user == current_user
       @recipe = recipe
     else
       redirect_to recipes_path
     end
   end
+  
   def update
-    if @recipe.update(recipe_params)
-      redirect_to recipes_path
-    else
-      render :edit
+    @recipe = Recipe.find(params[:id].to_i)
+    if @recipe.user = current_user
+      if @recipe.update(recipe_params)
+        redirect_to recipes_path, notice: 'Recipe successfully updated !'
+      else
+        render :edit
+      end
     end
-
   end
+
   def destroy
-    @recipe.destroy
-    # Recipe.destroy(params[:id].to_i)
-    redirect_to recipes_path
+    @recipe = Recipe.find(params[:id].to_i)
+    if @recipe.user = current_user
+      if @recipe.destroy
+        redirect_to recipes_path, alert: 'Recipe successfully deleted !'
+      else
+        render :show
+      end
+    else
+      redirect_to recipes_path
+    end
   end
 
 private

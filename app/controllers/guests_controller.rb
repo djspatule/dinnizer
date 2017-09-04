@@ -9,10 +9,10 @@ class GuestsController < ApplicationController
     @guest = Guest.new(guest_params)
     @guest.user = current_user
     if @guest.save
-           redirect_to guests_path
-        else
+           redirect_to guests_path, notice: 'Guest successfully saved !'
+    else
             render :new
-        end
+    end
   end
 
   def edit
@@ -30,7 +30,7 @@ class GuestsController < ApplicationController
     @guest = Guest.find(params[:id].to_i)
     if @guest.user = current_user
       if @guest.update(guest_params)
-        redirect_to guests_path
+        redirect_to guests_path, notice: 'Guest successfully updated !'
       else
         render :edit
       end
@@ -40,7 +40,7 @@ class GuestsController < ApplicationController
     @guest = Guest.find(params[:id].to_i)
     if @guest.user = current_user
       if @guest.destroy
-        redirect_to guests_path
+        redirect_to guests_path, alert: 'Guest successfully deleted !'
       else
         render :show
       end
