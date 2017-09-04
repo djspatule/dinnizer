@@ -20,9 +20,10 @@
         </div>
       </div>
 
+      <!-- Recipe dropdown menu -->
       <div class="navbar-wagon-item">
         <div class="dropdown">
-          <span class="dropdown-toggle" id="recipe-menu" data-toggle="dropdown">
+          <span class="dropdown-toggle navbar-wagon-link" id="recipe-menu" data-toggle="dropdown">
             Recipes <i class="fa fa-caret-down"></i>
           </span>
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
@@ -32,9 +33,32 @@
         </div>
       </div>
 
-      <%#= link_to "Recipes \u25BE", recipes_path, class: "navbar-wagon-item navbar-wagon-link" %>
-      <%#= link_to "Guests \u25BE", guests_path, class: "navbar-wagon-item navbar-wagon-link" %>
-      <%#= link_to "Dinners \u25BE", dinners_path, class: "navbar-wagon-item navbar-wagon-link" %>
+      <!-- Guest dropdown menu -->
+      <div class="navbar-wagon-item">
+        <div class="dropdown">
+          <span class="dropdown-toggle navbar-wagon-link" id="guest-menu" data-toggle="dropdown">
+            Guests <i class="fa fa-caret-down"></i>
+          </span>
+          <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
+            <li><%= link_to "List guests", guests_path %></li>
+            <li><%= link_to "New guest", new_guest_path %></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Dinners dropdown menu -->
+      <div class="navbar-wagon-item">
+        <div class="dropdown">
+          <span class="dropdown-toggle navbar-wagon-link" id="dinner-menu" data-toggle="dropdown">
+            Dinners <i class="fa fa-caret-down"></i>
+          </span>
+          <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
+            <li><%= link_to "List dinners", dinners_path %></li>
+            <li><%= link_to "New dinner", new_dinner_path %></li>
+          </ul>
+        </div>
+      </div>
+      
       <!-- Profile picture with dropdown list -->
       <div class="navbar-wagon-item">
         <div class="dropdown">
