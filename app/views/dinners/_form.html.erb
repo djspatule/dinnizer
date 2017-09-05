@@ -7,7 +7,7 @@
       <%= recipe_form.input :recipe_id, collection: @recipes, label: "Recipe", placeholder: "Burger" %>
     <% end %>
     <%= form.simple_fields_for :dinner_guests do |guest_form| %>
-      <%= guest_form.input :guest_id, collection: @guests, label: "Guest", placeholder: "John Doe",  %>
+      <%= guest_form.input :guest_id, collection: @guests, label: "Guest", placeholder: "John Doe", :label_method => lambda { |guest| "#{guest.first_name} #{guest.last_name}" } %>
     <% end %>
     <%= form.button :submit, class: "btn btn-primary", method: :post %>
 <% end %>

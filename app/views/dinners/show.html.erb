@@ -6,6 +6,8 @@
       <p><%= link_to recipe.name, recipe_path(recipe) %></p>
     <% end %>
     <h3>And enjoyed it with: </h3>
-    <!-- <p><%#= link_to @dinner.guest.first_name + " " + @dinner.guest.last_name, guest_path(@dinner.guest) %></p> -->
+    <% @dinner.guests.each do |guest| %>
+      <p><%= link_to guest.first_name + " " + guest.last_name, guest_path(guest) %></p> 
+    <% end %>
   </div>
 </div>

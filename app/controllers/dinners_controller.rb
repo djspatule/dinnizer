@@ -1,8 +1,8 @@
 class DinnersController < ApplicationController
   def new
     @dinner = Dinner.new
-    @dinner.dinner_guests.build
     @dinner.dinner_recipes.build
+    @dinner.dinner_guests.build
     @recipes = Recipe.where(user: current_user)
     @guests = Guest.where(user: current_user)
   end

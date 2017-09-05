@@ -1,5 +1,4 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:edit, :show, :update, :destroy]
 
   def new
     @recipe = Recipe.new

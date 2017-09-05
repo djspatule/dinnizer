@@ -17,10 +17,12 @@
     <p>
       <% if @guest.dinners %>
         <% @guest.dinners.each do |dinner| %>
-          <% if dinner.recipe %>
-            <ul>
-            <li> <%= link_to dinner.recipe.name, recipe_path(dinner.recipe) %> </li>
-          </ul>
+          <% if dinner.recipes %>
+            <% dinner.recipes.each do |recipe| %>
+              <ul>
+                <li> <%= link_to recipe.name, recipe_path(recipe) %> </li>
+              </ul>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
