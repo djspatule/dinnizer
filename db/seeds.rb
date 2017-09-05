@@ -40,21 +40,19 @@ mimi = Guest.create! first_name: "Myriam", last_name: "Bialobroda", user_id: myr
 karine = Guest.create! first_name: "Karine", last_name: "Bialobroda", user_id: myriam.id
 
 #Dinners ---------------------------------------------------------------------
-date = Date.new(2000,8,11)
-date_2 = Date.new(2002,03,18)
-date_3 = Date.new(2017,1,14)
 
+din1 = Dinner.create! dinner_date: Date.new(2000,8,11), user_id: me.id
+din2 = Dinner.create! dinner_date: Date.new(2002,03,18), user_id: myriam.id
+din3 = Dinner.create! dinner_date: Date.new(2017,1,14), user_id: myriam.id
 
-din1 = Dinner.create! dinner_date: date, user_id: me.id
-din2 = Dinner.create! dinner_date: date_2, user_id: myriam.id
-din3 = Dinner.create! dinner_date: date_3, user_id: myriam.id
+    #Add guests and recipes to din1 ---------------------------------------------------------------------
+    DinnerGuest.create! dinner_id: din1.id, guest_id: lionel.id
+    DinnerGuest.create! dinner_id: din1.id, guest_id: helene.id
+    DinnerRecipe.create! dinner_id: din1.id, recipe_id: burger.id
+    DinnerRecipe.create! dinner_id: din1.id, recipe_id: pecan_pie.id
 
-DinnerGuest.create! dinner_id: din1.id, guest_id: lionel.id
-DinnerGuest.create! dinner_id: din1.id, guest_id: helene.id
-
-DinnerRecipe.create! dinner_id: din1.id, recipe_id: burger.id
-DinnerRecipe.create! dinner_id: din1.id, recipe_id: pizza.id
-# Dinner.create! dinner_date: date, recipe: pizza, guest: lionel, user_id: me.id
-# Dinner.create! dinner_date: date_2, recipe: burger, guest: mimi, user_id: myriam.id
-# Dinner.create! dinner_date: date_3, recipe: tiramisu, guest: mimi, user_id: myriam.id
-
+    #Add guests and recipes to din2 ---------------------------------------------------------------------
+    DinnerGuest.create! dinner_id: din2.id, guest_id: myriam.id
+    DinnerGuest.create! dinner_id: din2.id, guest_id: karine.id
+    DinnerRecipe.create! dinner_id: din2.id, recipe_id: pizza.id
+    DinnerRecipe.create! dinner_id: din2.id, recipe_id: tiramisu.id

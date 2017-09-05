@@ -1,6 +1,6 @@
 <%= simple_form_for @dinner do |form| %>
     <%= form.input :dinner_date, as: :date, start_year: Date.today.year - 120,
-                              end_year: Date.today.year,
+                              end_year: Date.today.year + 10,
                               order: [:day, :month, :year] %>
                               
     <%= form.simple_fields_for :dinner_recipes do |recipe_form| %>
