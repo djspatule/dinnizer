@@ -30,7 +30,7 @@ class GuestsController < ApplicationController
   
   def update
     @guest = Guest.find(params[:id].to_i)
-    if @guest.user = current_user
+    if @guest.user == current_user
       if @guest.update(guest_params)
         redirect_to guests_path, notice: 'Guest successfully updated !'
       else
@@ -43,7 +43,7 @@ class GuestsController < ApplicationController
   
   def destroy
     @guest = Guest.find(params[:id].to_i)
-    if @guest.user = current_user
+    if @guest.user == current_user
       if @guest.destroy
         redirect_to guests_path, alert: 'Guest successfully deleted !'
       else

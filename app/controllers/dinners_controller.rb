@@ -1,8 +1,10 @@
 class DinnersController < ApplicationController
   def new
     @dinner = Dinner.new
-    @dinner_recipes = DinnerRecipe.new
-    @dinner_guests = DinnerGuest.new
+    @dinner.dinner_guests.build
+    @dinner.dinner_recipes.build
+    @recipes = Recipe.where(user: current_user)
+    @guests = Guest.where(user: current_user)
   end
   
   def index
@@ -54,7 +56,7 @@ class DinnersController < ApplicationController
   end
   def destroy
     @dinner = Dinner.find(params[:id].to_i)
-    if @dinner.user = current_user
+    if @dinner.user == current_user
       if @dinner.destroy
         redirect_to dinners_path, alert: 'Dinner successfully deleted !'
       else
@@ -71,7 +73,7 @@ private
 # list between create and update. Also, you can specialize this method
 # with per-user checking of permissible attributes.
   def dinner_params
-    params.require(:dinner).permit(:dinner_date, :recipe_id, :guest_id, :user)
+    params.require(:dinner).permit(:dinner_date, :recipe_id, :guest_id, :user, :dinner_recipes_attributes => [:recipe_id], :dinner_guests_attributes => [:guest_id])
   end
 
 

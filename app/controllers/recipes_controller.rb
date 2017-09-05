@@ -32,7 +32,7 @@ class RecipesController < ApplicationController
   
   def update
     @recipe = Recipe.find(params[:id].to_i)
-    if @recipe.user = current_user
+    if @recipe.user == current_user
       if @recipe.update(recipe_params)
         redirect_to recipes_path, notice: 'Recipe successfully updated !'
       else
@@ -45,7 +45,7 @@ class RecipesController < ApplicationController
 
   def destroy
     @recipe = Recipe.find(params[:id].to_i)
-    if @recipe.user = current_user
+    if @recipe.user == current_user
       if @recipe.destroy
         redirect_to recipes_path, alert: 'Recipe successfully deleted !'
       else
