@@ -3,9 +3,14 @@
                               end_year: Date.today.year + 10,
                               order: [:day, :month, :year] %>
                               
-    <%= form.simple_fields_for :dinner_recipes do |recipe_form| %>
-      <%= recipe_form.input :recipe_id, collection: @recipes, label: "Recipe", placeholder: "Burger" %>
+    <%= link_to add_input_path, remote: true, method: :get do %>
+      <i class="fa fa-plus-circle"></i>
     <% end %>
+    <div class="input-container"> <!-- add an id="recipe" to reuse the logic for guests ?? -->
+      <% for i in 0..@x %>
+        <%= render "add_input", form: form %>
+      <% end %>
+    </div>
     <%= form.simple_fields_for :dinner_guests do |guest_form| %>
       <%= guest_form.input :guest_id, collection: @guests, label: "Guest", placeholder: "John Doe", :label_method => lambda { |guest| "#{guest.first_name} #{guest.last_name}" } %>
     <% end %>

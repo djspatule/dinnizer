@@ -5,6 +5,7 @@ class DinnersController < ApplicationController
     @dinner.dinner_guests.build
     @recipes = Recipe.where(user: current_user)
     @guests = Guest.where(user: current_user)
+    @x = 1
   end
   
   def index
@@ -66,6 +67,13 @@ class DinnersController < ApplicationController
       redirect_to dinners_path
     end
   end
+  
+  def add_input
+    respond_to do |format|
+      format.html { redirect_to dinners_path }
+      format.js
+    end
+  end
 
 private
 # Using a private method to encapsulate the permissible parameters is
@@ -78,3 +86,4 @@ private
 
 
 end
+

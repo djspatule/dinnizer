@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   resources :recipes
   resources :guests
   resources :dinners
+  get "add_input" => "dinners#add_input"
 end
