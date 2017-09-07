@@ -7,9 +7,7 @@
       <i class="fa fa-plus-circle"></i>
     <% end %>
     <div class="input-container"> <!-- add an id="recipe" to reuse the logic for guests ?? -->
-      <% for i in 0..@x %>
-        <%= render "add_input", form: form %>
-      <% end %>
+      <%= render "add_input", form: form %>
     </div>
     <%= form.simple_fields_for :dinner_guests do |guest_form| %>
       <%= guest_form.input :guest_id, collection: @guests, label: "Guest", placeholder: "John Doe", :label_method => lambda { |guest| "#{guest.first_name} #{guest.last_name}" } %>
