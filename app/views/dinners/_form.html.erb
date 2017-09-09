@@ -2,12 +2,13 @@
     <%= form.input :dinner_date, as: :date, start_year: Date.today.year - 120,
                               end_year: Date.today.year + 10,
                               order: [:day, :month, :year] %>
-                              
+
     <%= link_to add_input_path, remote: true, method: :get do %>
       <i class="fa fa-plus-circle"></i>
     <% end %>
-    <div class="input-container"> <!-- add an id="recipe" to reuse the logic for guests ?? -->
-      <%= render "add_input", form: form %>
+
+    <div class="recipient">
+      <%= render "recipe_field", form: form %>
     </div>
     <%= form.simple_fields_for :dinner_guests do |guest_form| %>
       <%= guest_form.input :guest_id, collection: @guests, label: "Guest", placeholder: "John Doe", :label_method => lambda { |guest| "#{guest.first_name} #{guest.last_name}" } %>
