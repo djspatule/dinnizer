@@ -20,6 +20,7 @@ gem 'cloudinary'
 gem 'attachinary'
 gem "jquery-fileupload-rails"
 gem "coffee-rails"
+gem 'nested_form_fields'
 
 group :development, :test do
   gem 'better_errors'

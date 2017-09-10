@@ -67,13 +67,6 @@ class DinnersController < ApplicationController
     end
   end
 
-  def add_input
-    respond_to do |format|
-      format.html { redirect_to dinners_path }
-      format.js
-    end
-  end
-
 private
 # Using a private method to encapsulate the permissible parameters is
 # a good pattern since you'll be able to reuse the same permit
