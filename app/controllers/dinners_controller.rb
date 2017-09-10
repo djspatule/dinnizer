@@ -5,13 +5,12 @@ class DinnersController < ApplicationController
     @dinner.dinner_guests.build
     @recipes = Recipe.where(user: current_user)
     @guests = Guest.where(user: current_user)
-    @x = 1
   end
-  
+
   def index
     @dinners = Dinner.where(user: current_user)
   end
-  
+
   def create
     @dinner = Dinner.new(dinner_params)
     @dinner.user = current_user
@@ -33,7 +32,7 @@ class DinnersController < ApplicationController
   def edit
     @dinner = Dinner.find(params[:id].to_i)
   end
-  
+
   def show
     dinner = Dinner.find(params[:id].to_i)
     if dinner.user == current_user
@@ -42,7 +41,7 @@ class DinnersController < ApplicationController
       redirect_to dinners_path
     end
   end
-  
+
   def update
     @dinner = Dinner.find(params[:id].to_i)
     if @dinner.user == current_user
@@ -67,7 +66,7 @@ class DinnersController < ApplicationController
       redirect_to dinners_path
     end
   end
-  
+
   def add_input
     respond_to do |format|
       format.html { redirect_to dinners_path }
