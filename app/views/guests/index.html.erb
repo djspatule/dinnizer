@@ -1,35 +1,39 @@
-<h1> All guests </h1>
-
-<% @guests.each do |guest| %>
-  <div class="product">
-    <div class='product-upvote'>
-      <div class="product-arrow"></div>
-      <div class='product-count'>0</div>
-    </div>
-    <% if guest.guest_photo? %>
-      <%= cl_image_tag guest.guest_photo.path, class: "product-image hidden-xs" %>
-    <% else %>
-      <img src="guest.jpg" alt="guest_photo" class="product-image hidden-xs">
+<div class="container">
+  <div class="row  col-xs-12 col-md-9 col-md-offset-1">
+    <h1> All guests </h1>
+    
+    <% @guests.each do |guest| %>
+      <div class="product">
+        <!--<div class='product-upvote'>
+          <div class="product-arrow"></div>
+          <div class='product-count'>0</div>
+        </div>-->
+        <% if guest.guest_photo? %>
+          <%= cl_image_tag guest.guest_photo.path, class: "product-image hidden-xs" %>
+        <% else %>
+          <img src="guest.jpg" class="product-image hidden-xs">
+        <% end %>
+        <div class='product-body'>
+          <h3><%= link_to guest.first_name + " " + guest.last_name, guest_path(guest) %></h3>
+        </div>
+        <ul class="list-inline hidden-sm hidden-xs">
+          <li>
+            <%= link_to guest_path(guest) do %>
+              <i class="fa fa-eye"></i>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to edit_guest_path(guest) do %>
+              <i class="fa fa-pencil"></i>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to guest_path(guest), method: :delete do %>
+              <i class="fa fa-trash"></i>
+            <% end %>
+          </li>
+        </ul>
+      </div>
     <% end %>
-    <div class='product-body'>
-      <h3><%= link_to guest.first_name + " " + guest.last_name, guest_path(guest) %></h3>
-    </div>
-    <ul class="list-inline product-controls hidden-sm hidden-xs">
-      <li>
-        <%= link_to guest_path(guest) do %>
-          <i class="fa fa-eye"></i>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to edit_guest_path(guest) do %>
-          <i class="fa fa-pencil"></i>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to guest_path(guest), method: :delete do %>
-          <i class="fa fa-trash"></i>
-        <% end %>
-      </li>
-    </ul>
   </div>
-<% end %>
+</div>

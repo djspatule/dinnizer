@@ -1,13 +1,17 @@
-<div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('https://kitt.lewagon.com/placeholder/cities/berlin');">
+<div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('/assets/background-67fa7dc4bc54cea1f8625d54f42e3bc427d79fec1a0d50995fc75159fb35d9b9.jpg');">
   <div class="banner-content">
-    <h1><%= @dinner.dinner_date %></h1>
+    <h1><%= @dinner.dinner_date.strftime("%d/%m/%Y") %></h1>
     <h3>you served the following: </h3>
-    <% @dinner.recipes.each do |recipe| %>
-      <p><%= link_to recipe.name, recipe_path(recipe) %></p>
-    <% end %>
+    <ul>
+      <% @dinner.recipes.each do |recipe| %>
+        <li align="left"><%= link_to recipe.name, recipe_path(recipe) %></li>
+      <% end %>
+    </ul>
     <h3>And enjoyed it with: </h3>
-    <% @dinner.guests.each do |guest| %>
-      <p><%= link_to guest.first_name + " " + guest.last_name, guest_path(guest) %></p> 
-    <% end %>
+    <ul>
+      <% @dinner.guests.each do |guest| %>
+        <li align="left"><%= link_to guest.first_name + " " + guest.last_name, guest_path(guest) %></li> 
+      <% end %>
+    </ul>
   </div>
 </div>
