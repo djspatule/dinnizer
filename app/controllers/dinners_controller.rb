@@ -16,13 +16,7 @@ class DinnersController < ApplicationController
     @dinner.user = current_user
     @recipes = Recipe.where(user: current_user)
     @guests = Guest.where(user: current_user)
-    # why is the following useless ????
-    # if dinner_params[:recipe_id]
-    #   @dinner_recipe = DinnerRecipe.new(dinner_params)
-    #   if @dinner_recipe.save
-    #     redirect_to dinners_path
-    #   end
-    # end
+    
     if @dinner.save
       redirect_to dinners_path, notice: 'Dinner successfully saved !'
     else
@@ -50,38 +44,6 @@ class DinnersController < ApplicationController
     @dinner_recipes = DinnerRecipe.where(dinner_id: @dinner.id)
     @dinner_guests = DinnerGuest.where(dinner_id: @dinner.id)
     if @dinner.user == current_user
-      # recipe_ids = dinner_params[:dinner_recipes_attributes]["0"][:recipe_id]
-      # # -- RECIPES -- 
-      # # ADD RECIPE TO DINNER : for each recipe that was sent by the user in the "edit form", check if it was already saved or if it is new...and if it is new, save it !
-      # if recipe_ids
-      #   recipe_ids.each do |recipe_id|
-      #     already_saved = false
-      #     @dinner_recipes.each do |dinner_recipe|
-      #       if dinner_recipe.recipe_id == recipe_id
-      #         already_saved = true
-      #       end
-      #       if already_saved == false
-      #         DinnerRecipe.create!(dinner_recipe.dinner_id, dinner_recipe.recipe_id)
-      #       end
-      #     end
-      #   end
-      # end
-      
-      # # DELETE RECIPE FROM DINNER : for each recipe that is already saved, check if it was also sent by the user in the "edit form"...and if not, destroy it !
-      # @dinner_recipes.each do |dinner_recipe|
-      #   already_saved = false
-      #   if recipe_ids
-      #     recipe_ids.each do |recipe_id|
-      #       if recipe_id == dinner_recipe.recipe_id
-      #         already_saved = true
-      #       end
-      #     end
-      #     if already_saved == false
-      #       dinner_recipe.destroy
-      #     end
-      #   end
-      # end
-      
       if @dinner.update(dinner_params)
         redirect_to @dinner, notice: 'Recipe successfully updated !'
       else
@@ -110,7 +72,6 @@ private
 # list between create and update. Also, you can specialize this method
 # with per-user checking of permissible attributes.
 
-#add :recipe_id, :guest_id ?
   def dinner_params
     params.require(:dinner).permit(:id, :dinner_date, :user_id, dinner_recipes_attributes: [:id, :recipe_id], dinner_guests_attributes: [:id, :guest_id])
   end
