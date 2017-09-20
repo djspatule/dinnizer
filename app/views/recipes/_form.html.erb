@@ -3,5 +3,6 @@
     <%= form.input :content, label: "recipe", placeholder: "Place cheese and steak between buns" %>
     <%= form.input :recipe_photo, as: :attachinary %>
     <%= form.button :submit, class: "btn btn-primary", method: :post %>
+    <%= link_to "Cancel", recipes_path, class:"btn btn-default" %>
     
   <% end %>

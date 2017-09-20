@@ -1,9 +1,16 @@
 <div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('https://kitt.lewagon.com/placeholder/cities/berlin');">
   <div class="banner-content">
-    <h1><%= @recipe.name %></h1>
-    <p><%= @recipe.content %></p>
-    <% if @recipe.recipe_photo? %>
-      <%= cl_image_tag @recipe.recipe_photo.path, :width => 300, :height => 200 %>
-    <% end %>
+    <div class="container">
+      <h1><%= @recipe.name %></h1>
+      <% if @recipe.recipe_photo? %>
+        <%= cl_image_tag @recipe.recipe_photo.path, :width => 300, :height => 200 %>
+      <% end %>
+      <p><%= @recipe.content %></p>
+    </div>
+    <div class="container">
+      <%= link_to "Back", recipes_path, class:"btn btn-default" %>
+      <%= link_to "Edit", edit_recipe_path(@recipe), class:"btn btn-warning" %>
+      <%= link_to "Delete", recipe_path(@recipe), method: :delete, class:"btn btn-danger" %>
+    </div>
   </div>
 </div>

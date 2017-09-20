@@ -3,5 +3,6 @@
     <%= form.input :last_name, label: "Last name", placeholder: "Doe", error: 'Last name is mandatory, please specify one' %>
     <%= form.input :guest_photo, as: :attachinary %>
     <%= form.button :submit, class: "btn btn-primary", method: :post %>
+    <%= link_to "Cancel", guests_path, class:"btn btn-default" %>
 
   <% end %>

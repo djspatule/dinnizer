@@ -13,5 +13,9 @@
         <li align="left"><%= link_to guest.first_name + " " + guest.last_name, guest_path(guest) %></li> 
       <% end %>
     </ul>
+    <br>
+    <%= link_to "Back", dinners_path, class:"btn btn-default" %>
+    <%= link_to "Edit", edit_dinner_path(@dinner), class:"btn btn-warning" %>
+    <%= link_to "Delete", dinner_path(@dinner), method: :delete, class:"btn btn-danger"  %>
   </div>
 </div>

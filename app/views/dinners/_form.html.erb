@@ -24,4 +24,7 @@
     <%end%>
 
     <%= form.button :submit, class: "btn btn-primary", method: :post %>
+    <%= link_to "Cancel", dinners_path, class:"btn btn-default" %>
 <% end %>
+
+<!-- TODO : protect via ajax and JS sending multiple times the samed recipe -->
