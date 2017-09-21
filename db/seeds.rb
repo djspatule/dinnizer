@@ -34,10 +34,10 @@ pizza = Recipe.create! name: "Pizza", user_id: myriam.id, content: "margharita"
 tiramisu = Recipe.create! name: "Tiramisu", user_id: myriam.id, content: "coffee and mascarpone"
 
 #Guests ---------------------------------------------------------------------
-lionel = Guest.create! first_name: "Lionel", last_name: "Arnaud", user_id: me.id
-helene = Guest.create! first_name: "Hélène", last_name: "Kuepper", user_id: me.id
-mimi = Guest.create! first_name: "Myriam", last_name: "Bialobroda", user_id: myriam.id
-karine = Guest.create! first_name: "Karine", last_name: "Bialobroda", user_id: myriam.id
+lionel = Guest.create! first_name: "Lionel", last_name: "Arnaud", user_id: me.id, likes_and_dislikes: "Likes : pizzas / Dislikes : coliflower, organs, shellfish"
+helene = Guest.create! first_name: "Hélène", last_name: "Kuepper", user_id: me.id, likes_and_dislikes: "Likes : roquefort / Dislikes : organs"
+mimi = Guest.create! first_name: "Myriam", last_name: "Bialobroda", user_id: myriam.id, likes_and_dislikes: "Likes : vegetables / Dislikes : organs, pesto, olive paste"
+karine = Guest.create! first_name: "Karine", last_name: "Bialobroda", user_id: myriam.id, likes_and_dislikes: "Likes : tomme de savoie / Dislikes : organs, onions"
 
 #Dinners ---------------------------------------------------------------------
 

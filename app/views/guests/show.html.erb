@@ -4,6 +4,9 @@
     <% if @guest.guest_photo? %>
       <%= cl_image_tag @guest.guest_photo.path, :width => 300, :height => 200 %>
     <% end %>
+    <h2>Likes and Dislikes: </h2>
+    <!--TODO : find a simple way to respect simple text formatting...-->
+    <p><%= @guest.likes_and_dislikes.gsub('\n', '<br>') %></p>
     <h3>you had this guest in the past : </h3>
     <p>
       <% if @guest.dinners %>

@@ -37,7 +37,7 @@
     <type label="SET" length="1" sql="SET" quote=""/>
     <type label="Bit" length="0" sql="bit" quote=""/>
   </group>
-</datatypes><table x="98" y="169" name="Recipe">
+</datatypes><table x="386" y="343" name="Recipe">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -59,7 +59,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="952" y="176" name="Guest">
+<table x="860" y="326" name="Guest">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -73,11 +73,14 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="User" row="id" />
 </row>
+<row name="likes_and_dislikes" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="610" y="338" name="Dinner">
+<table x="671" y="510" name="Dinner">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -92,7 +95,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="502" y="41" name="User">
+<table x="709" y="397" name="User">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -116,7 +119,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="308" y="484" name="DinnerRecipe">
+<table x="428" y="516" name="DinnerRecipe">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>

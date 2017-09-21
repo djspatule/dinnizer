@@ -32,7 +32,7 @@ class GuestsController < ApplicationController
     @guest = Guest.find(params[:id].to_i)
     if @guest.user == current_user
       if @guest.update(guest_params)
-        redirect_to guests_path, notice: 'Guest successfully updated !'
+        redirect_to @guest, notice: 'Guest successfully updated !'
       else
         render :edit
       end
@@ -60,7 +60,7 @@ private
 # list between create and update. Also, you can specialize this method
 # with per-user checking of permissible attributes.
   def guest_params
-    params.require(:guest).permit(:first_name, :last_name, :guest_photo, :user)
+    params.require(:guest).permit(:first_name, :last_name, :guest_photo, :user, :likes_and_dislikes)
   end
 
 end

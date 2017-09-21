@@ -1,8 +1,8 @@
 <%= simple_form_for @guest do |form| %>
     <%= form.input :first_name, label: "First name", placeholder: "John" %>
     <%= form.input :last_name, label: "Last name", placeholder: "Doe", error: 'Last name is mandatory, please specify one' %>
+    <%= form.input :likes_and_dislikes, label: "Likes & Dislikes", placeholder: "Likes : chocolate, cheese and pizza / Dislikes : coliflower, organs and shellfish" %>
     <%= form.input :guest_photo, as: :attachinary %>
     <%= form.button :submit, class: "btn btn-primary", method: :post %>
     <%= link_to "Cancel", guests_path, class:"btn btn-default" %>
-
   <% end %>
