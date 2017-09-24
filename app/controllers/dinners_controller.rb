@@ -16,10 +16,19 @@ class DinnersController < ApplicationController
     @dinner.user = current_user
     @recipes = Recipe.where(user: current_user)
     @guests = Guest.where(user: current_user)
-    
-    if @dinner.save
-      redirect_to dinners_path, notice: 'Dinner successfully saved !'
+    recipes = []
+    @dinner.dinner_recipes.each do |recipe|
+      recipes << recipe.recipe_id
+    end
+    binding.pry
+    if recipes.uniq.length == recipes.length
+      if @dinner.save
+        redirect_to dinners_path, notice: 'Dinner successfully saved !'
+      else
+        render :new
+      end
     else
+      flash[:alert] = "You can't add twice the same recipe to a dinner"
       render :new
     end
   end

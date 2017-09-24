@@ -52,7 +52,7 @@ din3 = Dinner.create! dinner_date: Date.new(2017,1,14), user_id: myriam.id
     DinnerRecipe.create! dinner_id: din1.id, recipe_id: pecan_pie.id
 
     #Add guests and recipes to din2 ---------------------------------------------------------------------
-    DinnerGuest.create! dinner_id: din2.id, guest_id: myriam.id
+    DinnerGuest.create! dinner_id: din2.id, guest_id: mimi.id
     DinnerGuest.create! dinner_id: din2.id, guest_id: karine.id
     DinnerRecipe.create! dinner_id: din2.id, recipe_id: pizza.id
     DinnerRecipe.create! dinner_id: din2.id, recipe_id: tiramisu.id
