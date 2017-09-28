@@ -3,21 +3,31 @@
                               end_year: Date.today.year + 10,
                               order: [:day, :month, :year] %>
 
-    <%= form.nested_fields_for :dinner_recipes do |ff| %>
-      <%= ff.remove_nested_fields_link do %>
-        <i class="fa fa-times btn-danger"></i>
-      <% end %>
-      <%= ff.input :recipe_id, collection: @recipes, label: "Recipe", placeholder: "Burger" %>
-      <%= form.add_nested_fields_link :dinner_recipes do %>
-        <i class="fa fa-plus-circle">"add recipe"</i>
-      <% end %>
-    <%end%>
+   
+    <ul class="list-inline">  
+      <li>  <h3>Recipes</h3> </li>
+      <li>
+        <%= form.add_nested_fields_link :dinner_recipes do %>
+          <i class="fa fa-plus-circle"></i>
+        <% end %>
+      </li>
+      <li>
+        <%= form.nested_fields_for :dinner_recipes do |ff| %>
+          <li><%= ff.remove_nested_fields_link do %>
+            <i class="fa fa-times remove-field"></i>
+          <% end %></li>
+          <li><%= ff.input :recipe_id, collection: @recipes, label: false, placeholder: "Burger" %></li>
+        <%end%>
+      </li>
+    </ul>
+    
+    
 
     <%= form.nested_fields_for :dinner_guests do |ff| %>
       <%= ff.remove_nested_fields_link do %>
         <i class="fa fa-times btn-danger"></i>
       <% end %>
-      <%= ff.input :guest_id, collection: @guests, label: "Guest", placeholder: "John Doe", :label_method => lambda { |guest| "#{guest.first_name} #{guest.last_name}" } %>
+      <%= ff.input :guest_id, collection: @guests, placeholder: "John Doe", :label_method => lambda { |guest| "#{guest.first_name} #{guest.last_name}" } %>
       <%= form.add_nested_fields_link :dinner_guests do %>
         <i class="fa fa-plus-circle"></i>
       <% end %>
