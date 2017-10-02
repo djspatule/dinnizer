@@ -8,28 +8,23 @@
     <!--TODO : find a simple way to respect simple text formatting...-->
     <p><%= @guest.likes_and_dislikes.gsub('\n', '<br>') %></p>
     <h3>you had this guest in the past : </h3>
-    <p>
-      <% if @guest.dinners %>
-        <% @guest.dinners.each do |dinner| %>
-          <ul>
-            <li> <%= link_to dinner.dinner_date, dinner_path(dinner) %> </li>
-          </ul>
-        <% end %>
+    <% if @guest.dinners %>
+      <% @guest.dinners.each do |dinner| %>
+        <ul>
+          <li> <%= link_to dinner.dinner_date, dinner_path(dinner) %> </li>
+        </ul>
       <% end %>
+    <% end %>
     <h3>and you served: </h3>
-    <p>
-      <% if @guest.dinners %>
-        <% @guest.dinners.each do |dinner| %>
-          <% if dinner.recipes %>
-            <% dinner.recipes.each do |recipe| %>
-              <ul>
-                <li> <%= link_to recipe.name, recipe_path(recipe) %> </li>
-              </ul>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% end %>
-    </p>
+    <% if @guest_recipes %>
+    <!--avoid duplicates in the recipe list-->
+      <%@guest_recipes.uniq.each do |recipe| %>
+        <ul>
+          <li> <%= link_to recipe.name, recipe_path(recipe) %> </li>
+        </ul>
+      <%end%>
+    <%end%>
+
     <%= link_to "Back", guests_path, class:"btn btn-default" %>
     <%= link_to "Edit", edit_guest_path(@guest), class:"btn btn-warning" %>
     <%= link_to "Delete", guest_path(@guest), method: :delete, class:"btn btn-danger" %>

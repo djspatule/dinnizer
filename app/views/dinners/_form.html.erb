@@ -4,13 +4,14 @@
                               order: [:day, :month, :year] %>
 
    
+    <!--New Recipes-->
     <ul class="list-inline">  
-      <li>  <h3>Recipes</h3> </li>
-      <li>
+      <h3>Recipes</h3>
+      
         <%= form.add_nested_fields_link :dinner_recipes do %>
           <i class="fa fa-plus-circle"></i>
         <% end %>
-      </li>
+      
       <li>
         <%= form.nested_fields_for :dinner_recipes do |ff| %>
           <li><%= ff.remove_nested_fields_link do %>
@@ -21,17 +22,23 @@
       </li>
     </ul>
     
-    
-
-    <%= form.nested_fields_for :dinner_guests do |ff| %>
-      <%= ff.remove_nested_fields_link do %>
-        <i class="fa fa-times btn-danger"></i>
-      <% end %>
-      <%= ff.input :guest_id, collection: @guests, placeholder: "John Doe", :label_method => lambda { |guest| "#{guest.first_name} #{guest.last_name}" } %>
-      <%= form.add_nested_fields_link :dinner_guests do %>
-        <i class="fa fa-plus-circle"></i>
-      <% end %>
-    <%end%>
+    <!--New Guests-->
+    <ul class="list-inline">  
+      <h3>Guests</h3>
+      
+        <%= form.add_nested_fields_link :dinner_guests do %>
+          <i class="fa fa-plus-circle"></i>
+        <% end %>
+      
+      <li>
+        <%= form.nested_fields_for :dinner_guests do |ff| %>
+          <li><%= ff.remove_nested_fields_link do %>
+            <i class="fa fa-times remove-field"></i>
+          <% end %></li>
+          <li><%= ff.input :guest_id, collection: @guests, label: false, placeholder: "John Doe", :label_method => lambda { |guest| "#{guest.first_name} #{guest.last_name}" } %></li>
+        <%end%>
+      </li>
+    </ul>
 
     <%= form.button :submit, class: "btn btn-primary", method: :post %>
     <%= link_to "Cancel", dinners_path, class:"btn btn-default" %>

@@ -17,18 +17,22 @@ class DinnersController < ApplicationController
     @recipes = Recipe.where(user: current_user)
     @guests = Guest.where(user: current_user)
     recipes = []
+    guests = []
     @dinner.dinner_recipes.each do |recipe|
       recipes << recipe.recipe_id
     end
-    binding.pry
-    if recipes.uniq.length == recipes.length
+    @dinner.dinner_guests.each do |guest|
+      guests << guest.guest_id
+    end
+   
+    if recipes.uniq.length == recipes.length && guests.uniq.length == guests.length
       if @dinner.save
         redirect_to dinners_path, notice: 'Dinner successfully saved !'
       else
         render :new
       end
     else
-      flash[:alert] = "You can't add twice the same recipe to a dinner"
+      flash[:alert] = "You can't add twice the same recipe or guest to a dinner"
       render :new
     end
   end
@@ -48,6 +52,9 @@ class DinnersController < ApplicationController
     end
   end
 
+  # -- TODO : protect against duplication... /!\ the solution used in create doesn't work here as you can't work with @dinner 
+  # ('cause it contains the records found by .find and not an empty dinner) but need to work directly with dinner_params
+  # that is impossible to enumerate and work on...
   def update
     @dinner = Dinner.find(params[:id].to_i)
     @dinner_recipes = DinnerRecipe.where(dinner_id: @dinner.id)
@@ -62,6 +69,7 @@ class DinnersController < ApplicationController
       redirect_to dinners_path
     end
   end
+  
   def destroy
     @dinner = Dinner.find(params[:id].to_i)
     if @dinner.user == current_user
@@ -82,7 +90,7 @@ private
 # with per-user checking of permissible attributes.
 
   def dinner_params
-    params.require(:dinner).permit(:id, :dinner_date, :user_id, dinner_recipes_attributes: [:id, :recipe_id], dinner_guests_attributes: [:id, :guest_id])
+    params.require(:dinner).permit(:id, :dinner_date, :user_id, dinner_recipes_attributes: [:id, :recipe_id, :_destroy], dinner_guests_attributes: [:id, :guest_id, :_destroy])
   end
 
 

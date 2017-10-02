@@ -21,7 +21,18 @@ class GuestsController < ApplicationController
   
   def show
     guest = Guest.find(params[:id].to_i)
+    @guest_recipes = []
     if guest.user == current_user
+      #prepare a list on recipes that will be manipulated inn the view to avoid duplicates
+      if guest.dinners
+        guest.dinners.each  do |dinner|
+          if dinner.recipes
+            dinner.recipes.each do |recipe|
+              @guest_recipes << recipe
+            end
+          end
+        end
+      end
       @guest = guest
     else
       redirect_to guests_path
