@@ -1,8 +1,10 @@
-/* remove field */
-.remove-field {
-  background-color: #EE5F5B;
-  border-color: #ec4844;
-  border-radius: 50%;
-  color: white;
-}
+// flex-forms
+
+  .flex-form-container, .flex-input {
+    display: flex;
+    align-items: center;
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
 
