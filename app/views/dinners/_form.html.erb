@@ -5,40 +5,40 @@
 
    
     <!--New Recipes-->
-    <ul class="list-inline">  
+
       <h3>Recipes</h3>
-      
-        <%= form.add_nested_fields_link :dinner_recipes do %>
-          <i class="fa fa-plus-circle"></i>
-        <% end %>
-      
-      <li>
+      <div>
         <%= form.nested_fields_for :dinner_recipes do |ff| %>
-          <li><%= ff.remove_nested_fields_link do %>
-            <i class="fa fa-times remove-field"></i>
-          <% end %></li>
-          <li><%= ff.input :recipe_id, collection: @recipes, label: false, placeholder: "Burger" %></li>
+          <div class="flex-input">
+            <%= ff.input :recipe_id, collection: @recipes, label: false, placeholder: "Burger" %>
+            <%= ff.remove_nested_fields_link do %>
+              <i class="fa fa-times circle-icon circle-icon-red"></i>
+            <% end %>
+            
+          </div>
         <%end%>
-      </li>
-    </ul>
-    
-    <!--New Guests-->
-    <ul class="list-inline">  
-      <h3>Guests</h3>
-      
-        <%= form.add_nested_fields_link :dinner_guests do %>
-          <i class="fa fa-plus-circle"></i>
+        <%= form.add_nested_fields_link :dinner_recipes do %>
+          <i class="fa fa-plus circle-icon circle-icon-blue"></i> Add a recipe
         <% end %>
-      
-      <li>
-        <%= form.nested_fields_for :dinner_guests do |ff| %>
-          <li><%= ff.remove_nested_fields_link do %>
-            <i class="fa fa-times remove-field"></i>
-          <% end %></li>
-          <li><%= ff.input :guest_id, collection: @guests, label: false, placeholder: "John Doe", :label_method => lambda { |guest| "#{guest.first_name} #{guest.last_name}" } %></li>
-        <%end%>
-      </li>
-    </ul>
+      </div>
+    <!--New Guests-->
+
+      <h3>Guests</h3>
+        <div class="flex-form-container">
+          <%= form.add_nested_fields_link :dinner_guests do %>
+            <i class="fa fa-plus circle-icon circle-icon-blue"></i>
+          <% end %>
+
+          <%= form.nested_fields_for :dinner_guests do |ff| %>
+            <div class="flex-input">
+              <%= ff.input :guest_id, collection: @guests, label: false, placeholder: "John Doe", :label_method => lambda { |guest| "#{guest.first_name} #{guest.last_name}" } %>
+              <%= ff.remove_nested_fields_link do %>
+                <i class="fa fa-times circle-icon circle-icon-red"></i>
+              <% end %>
+            </div>
+          <%end%>
+        </div>
+
 
     <%= form.button :submit, class: "btn btn-primary", method: :post %>
     <%= link_to "Cancel", dinners_path, class:"btn btn-default" %>
