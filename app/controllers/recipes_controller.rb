@@ -3,12 +3,13 @@ class RecipesController < ApplicationController
   def new
     @recipe = Recipe.new
   end
+
   def index
-    @recipes = Recipe.where(user: current_user)
+    @recipes = current_user.recipes
   end
+
   def create
-    @recipe = Recipe.new(recipe_params)
-    @recipe.user = current_user
+    @recipe = current_user.recipes.build(recipe_params)
     if @recipe.save
       redirect_to recipes_path, notice: 'Recipe successfully saved !'
     else
@@ -17,41 +18,28 @@ class RecipesController < ApplicationController
   end
 
   def edit
-    @recipe = Recipe.find(params[:id].to_i)
+    @recipe = current_user.recipes.find(params[:id])
   end
   
   def show
-    recipe = Recipe.find(params[:id].to_i)
-    if recipe.user == current_user
-      @recipe = recipe
-    else
-      redirect_to recipes_path
-    end
+    @recipe = current_user.recipes.find(params[:id])
   end
   
   def update
-    @recipe = Recipe.find(params[:id].to_i)
-    if @recipe.user == current_user
-      if @recipe.update(recipe_params)
-        redirect_to recipes_path, notice: 'Recipe successfully updated !'
-      else
-        render :edit
-      end
+    @recipe = current_user.recipes.find(params[:id])
+    if @recipe.update(recipe_params)
+      redirect_to recipes_path, notice: 'Recipe successfully updated !'
     else
-      redirect_to recipes_path
+      render :edit
     end
   end
 
   def destroy
-    @recipe = Recipe.find(params[:id].to_i)
-    if @recipe.user == current_user
-      if @recipe.destroy
-        redirect_to recipes_path, alert: 'Recipe successfully deleted !'
-      else
-        render :show
-      end
+    @recipe = current_user.recipes.find(params[:id])
+    if @recipe.destroy
+      redirect_to recipes_path, alert: 'Recipe successfully deleted !'
     else
-      redirect_to recipes_path
+      render :show
     end
   end
 
@@ -62,8 +50,7 @@ private
 # with per-user checking of permissible attributes.
 
   def recipe_params
-    params.require(:recipe).permit(:name, :content, :recipe_photo, :user)
+    params.require(:recipe).permit(:name, :content, :recipe_photo)
   end
 
 end
-

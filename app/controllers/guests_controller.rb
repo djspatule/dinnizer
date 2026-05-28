@@ -2,66 +2,53 @@ class GuestsController < ApplicationController
   def new
     @guest = Guest.new
   end
+
   def index
-    @guests = Guest.where(user: current_user)
+    @guests = current_user.guests
   end
+
   def create
-    @guest = Guest.new(guest_params)
-    @guest.user = current_user
+    @guest = current_user.guests.build(guest_params)
     if @guest.save
-           redirect_to guests_path, notice: 'Guest successfully saved !'
+      redirect_to guests_path, notice: 'Guest successfully saved !'
     else
-            render :new
+      render :new
     end
   end
 
   def edit
-    @guest = Guest.find(params[:id].to_i)
+    @guest = current_user.guests.find(params[:id])
   end
   
   def show
-    guest = Guest.find(params[:id].to_i)
+    @guest = current_user.guests.find(params[:id])
     @guest_recipes = []
-    if guest.user == current_user
-      #prepare a list on recipes that will be manipulated inn the view to avoid duplicates
-      if guest.dinners
-        guest.dinners.each  do |dinner|
-          if dinner.recipes
-            dinner.recipes.each do |recipe|
-              @guest_recipes << recipe
-            end
-          end
+    # Prepare a list of recipes used in the view without duplicates.
+    if @guest.dinners
+      @guest.dinners.each do |dinner|
+        if dinner.recipes
+          dinner.recipes.each { |recipe| @guest_recipes << recipe }
         end
       end
-      @guest = guest
-    else
-      redirect_to guests_path
     end
+    @guest_recipes.uniq!
   end
   
   def update
-    @guest = Guest.find(params[:id].to_i)
-    if @guest.user == current_user
-      if @guest.update(guest_params)
-        redirect_to @guest, notice: 'Guest successfully updated !'
-      else
-        render :edit
-      end
+    @guest = current_user.guests.find(params[:id])
+    if @guest.update(guest_params)
+      redirect_to @guest, notice: 'Guest successfully updated !'
     else
-      redirect_to guests_path
+      render :edit
     end
   end
   
   def destroy
-    @guest = Guest.find(params[:id].to_i)
-    if @guest.user == current_user
-      if @guest.destroy
-        redirect_to guests_path, alert: 'Guest successfully deleted !'
-      else
-        render :show
-      end
+    @guest = current_user.guests.find(params[:id])
+    if @guest.destroy
+      redirect_to guests_path, alert: 'Guest successfully deleted !'
     else
-      redirect_to guests_path
+      render :show
     end
   end
 
@@ -71,7 +58,7 @@ private
 # list between create and update. Also, you can specialize this method
 # with per-user checking of permissible attributes.
   def guest_params
-    params.require(:guest).permit(:first_name, :last_name, :guest_photo, :user, :likes_and_dislikes)
+    params.require(:guest).permit(:first_name, :last_name, :guest_photo, :likes_and_dislikes)
   end
 
 end

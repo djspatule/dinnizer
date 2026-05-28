@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
   database: dinnizer_production
   username: dinnizer
   password: <%= ENV['DINNIZER_DATABASE_PASSWORD'] %>

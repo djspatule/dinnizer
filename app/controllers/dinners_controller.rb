@@ -3,83 +3,50 @@ class DinnersController < ApplicationController
     @dinner = Dinner.new
     @dinner.dinner_recipes.build
     @dinner.dinner_guests.build
-    @recipes = Recipe.where(user: current_user)
-    @guests = Guest.where(user: current_user)
+    load_form_collections
   end
 
   def index
-    @dinners = Dinner.where(user: current_user)
+    @dinners = current_user.dinners
   end
 
   def create
-    @dinner = Dinner.new(dinner_params)
-    @dinner.user = current_user
-    @recipes = Recipe.where(user: current_user)
-    @guests = Guest.where(user: current_user)
-    recipes = []
-    guests = []
-    @dinner.dinner_recipes.each do |recipe|
-      recipes << recipe.recipe_id
-    end
-    @dinner.dinner_guests.each do |guest|
-      guests << guest.guest_id
-    end
-   
-    if recipes.uniq.length == recipes.length && guests.uniq.length == guests.length
-      if @dinner.save
-        redirect_to dinners_path, notice: 'Dinner successfully saved !'
-      else
-        render :new
-      end
+    @dinner = current_user.dinners.build(dinner_params)
+    load_form_collections
+
+    if @dinner.save
+      redirect_to dinners_path, notice: 'Dinner successfully saved !'
     else
-      flash[:alert] = "You can't add twice the same recipe or guest to a dinner"
       render :new
     end
   end
 
   def edit
-    @dinner = Dinner.find(params[:id].to_i)
-    @recipes = Recipe.where(user: current_user)
-    @guests = Guest.where(user: current_user)
+    @dinner = current_user.dinners.find(params[:id])
+    load_form_collections
   end
 
   def show
-    dinner = Dinner.find(params[:id].to_i)
-    if dinner.user == current_user
-      @dinner = dinner
-    else
-      redirect_to dinners_path
-    end
+    @dinner = current_user.dinners.find(params[:id])
   end
 
-  # -- TODO : protect against duplication... /!\ the solution used in create doesn't work here as you can't work with @dinner 
-  # ('cause it contains the records found by .find and not an empty dinner) but need to work directly with dinner_params
-  # that is impossible to enumerate and work on...
   def update
-    @dinner = Dinner.find(params[:id].to_i)
-    @dinner_recipes = DinnerRecipe.where(dinner_id: @dinner.id)
-    @dinner_guests = DinnerGuest.where(dinner_id: @dinner.id)
-    if @dinner.user == current_user
-      if @dinner.update(dinner_params)
-        redirect_to @dinner, notice: 'Recipe successfully updated !'
-      else
-        render :edit
-      end
+    @dinner = current_user.dinners.find(params[:id])
+    load_form_collections
+
+    if @dinner.update(dinner_params)
+      redirect_to @dinner, notice: 'Dinner successfully updated !'
     else
-      redirect_to dinners_path
+      render :edit
     end
   end
   
   def destroy
-    @dinner = Dinner.find(params[:id].to_i)
-    if @dinner.user == current_user
-      if @dinner.destroy
-        redirect_to dinners_path, alert: 'Dinner successfully deleted !'
-      else
-        render :show
-      end
+    @dinner = current_user.dinners.find(params[:id])
+    if @dinner.destroy
+      redirect_to dinners_path, alert: 'Dinner successfully deleted !'
     else
-      redirect_to dinners_path
+      render :show
     end
   end
 
@@ -90,9 +57,12 @@ private
 # with per-user checking of permissible attributes.
 
   def dinner_params
-    params.require(:dinner).permit(:id, :dinner_date, :user_id, dinner_recipes_attributes: [:id, :recipe_id, :_destroy], dinner_guests_attributes: [:id, :guest_id, :_destroy])
+    params.require(:dinner).permit(:dinner_date, dinner_recipes_attributes: [:id, :recipe_id, :_destroy], dinner_guests_attributes: [:id, :guest_id, :_destroy])
   end
 
+  def load_form_collections
+    @recipes = current_user.recipes
+    @guests = current_user.guests
+  end
 
 end
-

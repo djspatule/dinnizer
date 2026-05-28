@@ -3,4 +3,6 @@ class Guest < ApplicationRecord
   has_many :dinner_guests, dependent: :destroy
   has_many :dinners, through: :dinner_guests
   belongs_to :user
+
+  validates :first_name, presence: true
 end

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.0'
+ruby '2.4.10'
 
 gem 'figaro'
 gem 'jbuilder', '~> 2.0'

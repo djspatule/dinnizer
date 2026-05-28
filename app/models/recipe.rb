@@ -3,4 +3,6 @@ class Recipe < ApplicationRecord
   has_many :dinner_recipes, dependent: :destroy
   has_many :dinners, through: :dinner_recipes
   belongs_to :user
+
+  validates :name, presence: true
 end
