@@ -4,7 +4,7 @@
     <%= link_to "New recipe", new_recipe_path, class:"btn btn-primary" %>
 
     <% if @recipes.empty? %>
-      <p>You have no recipe yet. Add one recipe you like to cook.</p>
+      <p>You have no recipe yet. <%= link_to "Add one recipe", new_recipe_path %> you like to cook.</p>
     <% end %>
     
     <% @recipes.each do |recipe| %>
@@ -33,7 +33,7 @@
             <% end %>
           </li>
           <li>
-            <%= link_to recipe_path(recipe), method: :delete do %>
+            <%= link_to recipe_path(recipe), method: :delete, data: { confirm: "Are you sure?" } do %>
               <i class="fa fa-trash"></i>
             <% end %>
           </li>

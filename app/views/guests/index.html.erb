@@ -4,7 +4,7 @@
     <%= link_to "New guest", new_guest_path, class:"btn btn-primary" %>
 
     <% if @guests.empty? %>
-      <p>You have no guest yet. Add someone you often invite.</p>
+      <p>You have no guest yet. <%= link_to "Add someone", new_guest_path %> you often invite.</p>
     <% end %>
     
     <% @guests.each do |guest| %>
@@ -33,7 +33,7 @@
             <% end %>
           </li>
           <li>
-            <%= link_to guest_path(guest), method: :delete do %>
+            <%= link_to guest_path(guest), method: :delete, data: { confirm: "Are you sure?" } do %>
               <i class="fa fa-trash"></i>
             <% end %>
           </li>

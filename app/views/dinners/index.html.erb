@@ -4,7 +4,7 @@
     <%= link_to "New dinner", new_dinner_path, class:"btn btn-primary" %>
 
     <% if @dinners.empty? %>
-      <p>You have no dinner yet. Create your first dinner to start planning.</p>
+      <p>You have no dinner yet. <%= link_to "Create your first dinner", new_dinner_path %>.</p>
     <% end %>
     
     <% @dinners.each do |dinner| %>
@@ -28,7 +28,7 @@
             <% end %>
           </li>
           <li>
-            <%= link_to dinner_path(dinner), method: :delete do %>
+            <%= link_to dinner_path(dinner), method: :delete, data: { confirm: "Are you sure?" } do %>
               <i class="fa fa-trash"></i>
             <% end %>
           </li>

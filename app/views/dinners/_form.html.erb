@@ -12,9 +12,9 @@
                               order: [:day, :month, :year] %>
 
    
-    <!--New Recipes-->
+    <!--Recipes served-->
 
-      <h3>Recipes</h3>
+      <h3>Recipes served</h3>
       <div>
         <%= form.nested_fields_for :dinner_recipes do |ff| %>
           <div class="flex-input">
@@ -29,9 +29,9 @@
           <i class="fa fa-plus circle-icon circle-icon-blue"></i> Add a recipe
         <% end %>
       </div>
-    <!--New Guests-->
+    <!--Guests invited-->
 
-      <h3>Guests</h3>
+      <h3>Guests invited</h3>
         <div class="flex-form-container">
           <%= form.add_nested_fields_link :dinner_guests do %>
             <i class="fa fa-plus circle-icon circle-icon-blue"></i> Add a guest
