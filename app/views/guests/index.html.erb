@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row  col-xs-12 col-md-9 col-md-offset-1">
     <h1> All guests </h1>
+    <%= link_to "New guest", new_guest_path, class:"btn btn-primary" %>
     
     <% @guests.each do |guest| %>
       <div class="product">
@@ -11,7 +12,7 @@
         <% if guest.guest_photo? %>
           <%= cl_image_tag guest.guest_photo.path, class: "product-image hidden-xs" %>
         <% else %>
-          <img src="guest.jpg" class="product-image hidden-xs">
+          <%= image_tag "logo.png", class: "product-image hidden-xs" %>
         <% end %>
         <div class='product-body'>
           <h3><%= link_to guest.first_name + " " + guest.last_name, guest_path(guest) %></h3>

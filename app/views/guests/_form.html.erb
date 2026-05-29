@@ -1,4 +1,12 @@
 <%= simple_form_for @guest do |form| %>
+    <% if @guest.errors.any? %>
+      <div class="alert alert-danger">
+        <% @guest.errors.full_messages.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+      </div>
+    <% end %>
+
     <%= form.input :first_name, label: "First name", placeholder: "John" %>
     <%= form.input :last_name, label: "Last name", placeholder: "Doe", error: 'Last name is mandatory, please specify one' %>
     <%= form.input :likes_and_dislikes, label: "Likes & Dislikes", placeholder: "Likes : chocolate, cheese and pizza / Dislikes : coliflower, organs and shellfish" %>

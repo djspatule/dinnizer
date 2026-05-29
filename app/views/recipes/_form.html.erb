@@ -1,4 +1,12 @@
 <%= simple_form_for @recipe do |form| %>
+    <% if @recipe.errors.any? %>
+      <div class="alert alert-danger">
+        <% @recipe.errors.full_messages.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+      </div>
+    <% end %>
+
     <%= form.input :name, label: "recipe's title", placeholder: "Burger", error: 'Title is mandatory, please specify one' %>
     <%= form.input :content, label: "recipe", placeholder: "Place cheese and steak between buns" %>
     <%= form.input :recipe_photo, as: :attachinary if cloudinary_configured? %>

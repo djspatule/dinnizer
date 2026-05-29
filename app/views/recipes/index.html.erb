@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row  col-xs-12 col-md-9 col-md-offset-1">
     <h1> All recipes </h1>
+    <%= link_to "New recipe", new_recipe_path, class:"btn btn-primary" %>
     
     <% @recipes.each do |recipe| %>
       <div class="product">
@@ -11,7 +12,7 @@
         <% if recipe.recipe_photo? %>
           <%= cl_image_tag recipe.recipe_photo.path, class: "product-image hidden-xs" %>
         <% else %>
-          <img src="recipe.jpg" class="product-image hidden-xs">
+          <%= image_tag "logo.png", class: "product-image hidden-xs" %>
         <% end %>
         <div class='product-body'>
           <h3><%= link_to recipe.name, recipe_path(recipe) %></h3>

@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row col-xs-12 col-md-9 col-md-offset-1">
     <h1> All dinners </h1>
+    <%= link_to "New dinner", new_dinner_path, class:"btn btn-primary" %>
     
     <% @dinners.each do |dinner| %>
       <div class="product">
