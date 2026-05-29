@@ -34,7 +34,7 @@
       <h3>Guests</h3>
         <div class="flex-form-container">
           <%= form.add_nested_fields_link :dinner_guests do %>
-            <i class="fa fa-plus circle-icon circle-icon-blue"></i>
+            <i class="fa fa-plus circle-icon circle-icon-blue"></i> Add a guest
           <% end %>
 
           <%= form.nested_fields_for :dinner_guests do |ff| %>
@@ -48,6 +48,6 @@
         </div>
 
 
-    <%= form.button :submit, class: "btn btn-primary", method: :post %>
+    <%= form.button :submit, "Save dinner", class: "btn btn-primary", method: :post %>
     <%= link_to "Cancel", dinners_path, class:"btn btn-default" %>
 <% end %>

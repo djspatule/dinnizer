@@ -2,6 +2,10 @@
   <div class="row col-xs-12 col-md-9 col-md-offset-1">
     <h1> All dinners </h1>
     <%= link_to "New dinner", new_dinner_path, class:"btn btn-primary" %>
+
+    <% if @dinners.empty? %>
+      <p>You have no dinner yet. Create your first dinner to start planning.</p>
+    <% end %>
     
     <% @dinners.each do |dinner| %>
       <div class="product">

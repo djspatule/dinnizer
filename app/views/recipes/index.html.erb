@@ -2,6 +2,10 @@
   <div class="row  col-xs-12 col-md-9 col-md-offset-1">
     <h1> All recipes </h1>
     <%= link_to "New recipe", new_recipe_path, class:"btn btn-primary" %>
+
+    <% if @recipes.empty? %>
+      <p>You have no recipe yet. Add one recipe you like to cook.</p>
+    <% end %>
     
     <% @recipes.each do |recipe| %>
       <div class="product">

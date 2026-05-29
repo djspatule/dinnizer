@@ -2,6 +2,10 @@
   <div class="row  col-xs-12 col-md-9 col-md-offset-1">
     <h1> All guests </h1>
     <%= link_to "New guest", new_guest_path, class:"btn btn-primary" %>
+
+    <% if @guests.empty? %>
+      <p>You have no guest yet. Add someone you often invite.</p>
+    <% end %>
     
     <% @guests.each do |guest| %>
       <div class="product">
